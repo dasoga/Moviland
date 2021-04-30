@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MoviesHomeViewController.swift
 //  Movieland
 //
 //  Created by Dante Solorio on 29/04/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MoviesHomeViewController: UIViewController {
 
     let session = URLSessionProvider()
     
