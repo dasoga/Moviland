@@ -31,6 +31,7 @@
 		4C2B31BC263BB89700ED602C /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B31BB263BB89700ED602C /* HTTPTask.swift */; };
 		4C2B31BE263BB93500ED602C /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B31BD263BB93500ED602C /* ParameterEncoding.swift */; };
 		4C2B31C0263BB97D00ED602C /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B31BF263BB97D00ED602C /* URLParameterEncoder.swift */; };
+		4CB61DC5263CD7FF001E2065 /* MoviesHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		4C2B31BB263BB89700ED602C /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		4C2B31BD263BB93500ED602C /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		4C2B31BF263BB97D00ED602C /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesHomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 		4CB61DBE263C9E02001E2065 /* MoviesHome */ = {
 			isa = PBXGroup;
 			children = (
+				4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */,
 			);
 			path = MoviesHome;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				4C2B31BC263BB89700ED602C /* HTTPTask.swift in Sources */,
 				4C2B3199263BAC2F00ED602C /* NetworkError.swift in Sources */,
 				4C2B31BE263BB93500ED602C /* ParameterEncoding.swift in Sources */,
+				4CB61DC5263CD7FF001E2065 /* MoviesHomeViewModel.swift in Sources */,
 				4C2B319B263BAC4000ED602C /* NetworkResponse.swift in Sources */,
 				4C2B31AA263BAF9400ED602C /* URLRequestExtension.swift in Sources */,
 				4C2B319E263BAC7A00ED602C /* ProviderProtocol.swift in Sources */,
