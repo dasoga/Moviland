@@ -6,33 +6,43 @@
 //
 
 import UIKit
+import Combine
 
 class MoviesHomeViewController: UIViewController {
     
     // MARK: - Private properties
     
     private lazy var moviesHomeView = MoviesHomeView(frame: view.frame)
+    var homeViewModel = MoviesHomeViewModel(session: URLSessionProvider())
+    
+    // Subscritions to receive the popular movies list
+    var subscription: AnyCancellable?
 
     let session = URLSessionProvider()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-     
-        let endpoint = MoviesPopularEndpoints.popular        
-        session.request(type: Popular.self, service: endpoint) { response in
-            switch response {
-            case .success(let popularMovies):
-                print(popularMovies?.results.count ?? 0)
-            case let .failure(error):
-                print(error)
-            }
-        }
+        setupBindings()
+        homeViewModel.getPopularMovies()
     }
     
     // MARK: - Private functions
     
     private func setupView() {
         view.addSubview(moviesHomeView)
+    }
+    
+    private func setupBindings() {
+        subscription = homeViewModel.popularMoviesSubject.sink(receiveCompletion: { completion in
+            switch completion {
+            case let .failure(error):
+                // TODO: Manage error getting popular movies list
+                print("Error: \(error.localizedDescription)")
+            default: break
+            }
+        }, receiveValue: { [weak self] movies in
+            self?.moviesHomeView.movies = movies
+        })
     }
 }

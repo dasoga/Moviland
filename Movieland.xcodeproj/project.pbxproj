@@ -32,6 +32,8 @@
 		4C2B31BE263BB93500ED602C /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B31BD263BB93500ED602C /* ParameterEncoding.swift */; };
 		4C2B31C0263BB97D00ED602C /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B31BF263BB97D00ED602C /* URLParameterEncoder.swift */; };
 		4CB61DC5263CD7FF001E2065 /* MoviesHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */; };
+		4CE7C7AB263E159E0006232D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE7C7AA263E159E0006232D /* Constants.swift */; };
+		4CE7C7AD263E16120006232D /* PopularMoviesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE7C7AC263E16120006232D /* PopularMoviesCollectionViewCell.swift */; };
 		573912C8263CDB13001F3CCA /* MoviesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573912C7263CDB13001F3CCA /* MoviesHomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +86,8 @@
 		4C2B31BD263BB93500ED602C /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		4C2B31BF263BB97D00ED602C /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
 		4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesHomeViewModel.swift; sourceTree = "<group>"; };
+		4CE7C7AA263E159E0006232D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4CE7C7AC263E16120006232D /* PopularMoviesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesCollectionViewCell.swift; sourceTree = "<group>"; };
 		573912C7263CDB13001F3CCA /* MoviesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,6 +266,7 @@
 		4CB61DBC263C9DE4001E2065 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4CE7C7A9263E15970006232D /* Helpers */,
 				573912C3263CCC1E001F3CCA /* View */,
 				4CB61DBA263C9DCB001E2065 /* ViewModel */,
 				4C2B31B5263BB3CC00ED602C /* Model */,
@@ -277,6 +282,14 @@
 			path = MoviesHome;
 			sourceTree = "<group>";
 		};
+		4CE7C7A9263E15970006232D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4CE7C7AA263E159E0006232D /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		573912C3263CCC1E001F3CCA /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +303,7 @@
 			children = (
 				573912C7263CDB13001F3CCA /* MoviesHomeView.swift */,
 				4C2B3168263BA92D00ED602C /* MoviesHomeViewController.swift */,
+				4CE7C7AC263E16120006232D /* PopularMoviesCollectionViewCell.swift */,
 			);
 			path = MoviesHome;
 			sourceTree = "<group>";
@@ -429,6 +443,7 @@
 				4C2B31AC263BAFC500ED602C /* URLComponentsExtension.swift in Sources */,
 				4C2B31B2263BB22C00ED602C /* MoviesPopularEndpoints.swift in Sources */,
 				4C2B3169263BA92D00ED602C /* MoviesHomeViewController.swift in Sources */,
+				4CE7C7AB263E159E0006232D /* Constants.swift in Sources */,
 				4C2B31BA263BB44300ED602C /* Popular.swift in Sources */,
 				4C2B31B8263BB3E500ED602C /* Movie.swift in Sources */,
 				4C2B31C0263BB97D00ED602C /* URLParameterEncoder.swift in Sources */,
@@ -443,6 +458,7 @@
 				4C2B319B263BAC4000ED602C /* NetworkResponse.swift in Sources */,
 				573912C8263CDB13001F3CCA /* MoviesHomeView.swift in Sources */,
 				4C2B31AA263BAF9400ED602C /* URLRequestExtension.swift in Sources */,
+				4CE7C7AD263E16120006232D /* PopularMoviesCollectionViewCell.swift in Sources */,
 				4C2B319E263BAC7A00ED602C /* ProviderProtocol.swift in Sources */,
 				4C2B31A8263BAE7900ED602C /* URLSessionExtension.swift in Sources */,
 			);

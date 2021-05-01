@@ -23,7 +23,6 @@ class MoviesHomeViewModel {
         session.request(type: Popular.self, service: popularMoviesEndpoint) { [weak self] response in
             switch response {
             case .success(let popularMovies):
-                print(popularMovies?.results.count ?? 0)
                 self?.popularMoviesSubject.send(popularMovies?.results ?? [])
             case let .failure(error):
                 self?.popularMoviesSubject.send(completion: .failure(error))

@@ -17,7 +17,11 @@ class MoviesHomeView: UIView {
     
     var movies: [Movie] = [] {
         didSet {
-            applySnapshot()
+            if movies.count > 0 {
+                applySnapshot()
+            } else {
+              // TODO: Show empty list view
+            }
         }
     }
     
@@ -60,6 +64,7 @@ class MoviesHomeView: UIView {
     // MARK: - Private functions
     
     func applySnapshot() {
+        print(movies)
         var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(movies)
@@ -68,7 +73,7 @@ class MoviesHomeView: UIView {
     
     private func makeDataSource() -> UICollectionViewDiffableDataSource<Section, Movie> {
         let dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: moviesCollectionView) { (collectionView, indexPath, vendingMachine) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Home.moviesCell, for: indexPath)
             return cell
         }
         
@@ -77,6 +82,7 @@ class MoviesHomeView: UIView {
     
     private func registerCollectionViewClass() {
         moviesCollectionView.dataSource = dataSource
+        moviesCollectionView.register(PopularMoviesCollectionViewCell.self, forCellWithReuseIdentifier: Constants.Home.moviesCell)
     }
     
     private func setupView() {
