@@ -32,6 +32,7 @@
 		4C2B31BE263BB93500ED602C /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B31BD263BB93500ED602C /* ParameterEncoding.swift */; };
 		4C2B31C0263BB97D00ED602C /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2B31BF263BB97D00ED602C /* URLParameterEncoder.swift */; };
 		4CB61DC5263CD7FF001E2065 /* MoviesHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */; };
+		573912C8263CDB13001F3CCA /* MoviesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573912C7263CDB13001F3CCA /* MoviesHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		4C2B31BD263BB93500ED602C /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		4C2B31BF263BB97D00ED602C /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
 		4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesHomeViewModel.swift; sourceTree = "<group>"; };
+		573912C7263CDB13001F3CCA /* MoviesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +288,7 @@
 		573912C4263CCC22001F3CCA /* MoviesHome */ = {
 			isa = PBXGroup;
 			children = (
+				573912C7263CDB13001F3CCA /* MoviesHomeView.swift */,
 				4C2B3168263BA92D00ED602C /* MoviesHomeViewController.swift */,
 			);
 			path = MoviesHome;
@@ -438,6 +441,7 @@
 				4C2B31BE263BB93500ED602C /* ParameterEncoding.swift in Sources */,
 				4CB61DC5263CD7FF001E2065 /* MoviesHomeViewModel.swift in Sources */,
 				4C2B319B263BAC4000ED602C /* NetworkResponse.swift in Sources */,
+				573912C8263CDB13001F3CCA /* MoviesHomeView.swift in Sources */,
 				4C2B31AA263BAF9400ED602C /* URLRequestExtension.swift in Sources */,
 				4C2B319E263BAC7A00ED602C /* ProviderProtocol.swift in Sources */,
 				4C2B31A8263BAE7900ED602C /* URLSessionExtension.swift in Sources */,
