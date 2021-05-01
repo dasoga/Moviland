@@ -8,12 +8,16 @@
 import UIKit
 
 class MoviesHomeViewController: UIViewController {
+    
+    // MARK: - Private properties
+    
+    private lazy var moviesHomeView = MoviesHomeView(frame: view.frame)
 
     let session = URLSessionProvider()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupView()
      
         let endpoint = MoviesPopularEndpoints.popular        
         session.request(type: Popular.self, service: endpoint) { response in
@@ -25,7 +29,10 @@ class MoviesHomeViewController: UIViewController {
             }
         }
     }
-
-
+    
+    // MARK: - Private functions
+    
+    private func setupView() {
+        view.addSubview(moviesHomeView)
+    }
 }
-
