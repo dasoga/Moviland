@@ -9,6 +9,13 @@ import UIKit
 
 class PopularMoviesCollectionViewCell: UICollectionViewCell {
     
+    let posterImageView: UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "MoviePlaceholder"))
+        iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCell(frame: frame)
@@ -29,12 +36,15 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
         let imageViewSize = height * 0.6
         */
         
-        contentView.backgroundColor = .blue
         contentView.layer.cornerRadius = 8
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOffset = .zero
         contentView.layer.shadowOpacity = 0.2
         
-        
+        addSubview(posterImageView)
+        posterImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        posterImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        posterImageView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        posterImageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }

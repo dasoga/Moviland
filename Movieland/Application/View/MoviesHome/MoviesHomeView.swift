@@ -45,7 +45,6 @@ class MoviesHomeView: UIView {
     
     private lazy var dataSource = makeDataSource()
     
-    
     // MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -70,7 +69,7 @@ class MoviesHomeView: UIView {
     
     private func makeDataSource() -> UICollectionViewDiffableDataSource<Section, Movie> {
         let dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: moviesCollectionView) { (collectionView, indexPath, vendingMachine) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Home.moviesCell, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Home.moviesCell, for: indexPath) as! PopularMoviesCollectionViewCell
             return cell
         }
         
