@@ -34,6 +34,7 @@
 		4CB61DC5263CD7FF001E2065 /* MoviesHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */; };
 		4CE7C7AB263E159E0006232D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE7C7AA263E159E0006232D /* Constants.swift */; };
 		4CE7C7AD263E16120006232D /* PopularMoviesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE7C7AC263E16120006232D /* PopularMoviesCollectionViewCell.swift */; };
+		4CE7C7AF264087F10006232D /* JSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE7C7AE264087F10006232D /* JSONSerialization.swift */; };
 		573912C8263CDB13001F3CCA /* MoviesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573912C7263CDB13001F3CCA /* MoviesHomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		4CB61DC4263CD7FF001E2065 /* MoviesHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesHomeViewModel.swift; sourceTree = "<group>"; };
 		4CE7C7AA263E159E0006232D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4CE7C7AC263E16120006232D /* PopularMoviesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesCollectionViewCell.swift; sourceTree = "<group>"; };
+		4CE7C7AE264087F10006232D /* JSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSerialization.swift; sourceTree = "<group>"; };
 		573912C7263CDB13001F3CCA /* MoviesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,6 +219,7 @@
 				4C2B31A7263BAE7900ED602C /* URLSessionExtension.swift */,
 				4C2B31A9263BAF9400ED602C /* URLRequestExtension.swift */,
 				4C2B31AB263BAFC500ED602C /* URLComponentsExtension.swift */,
+				4CE7C7AE264087F10006232D /* JSONSerialization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				4C2B3199263BAC2F00ED602C /* NetworkError.swift in Sources */,
 				4C2B31BE263BB93500ED602C /* ParameterEncoding.swift in Sources */,
 				4CB61DC5263CD7FF001E2065 /* MoviesHomeViewModel.swift in Sources */,
+				4CE7C7AF264087F10006232D /* JSONSerialization.swift in Sources */,
 				4C2B319B263BAC4000ED602C /* NetworkResponse.swift in Sources */,
 				573912C8263CDB13001F3CCA /* MoviesHomeView.swift in Sources */,
 				4C2B31AA263BAF9400ED602C /* URLRequestExtension.swift in Sources */,

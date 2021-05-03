@@ -10,4 +10,11 @@ import Foundation
 struct Popular: Codable {
     var page: Int
     var results: [Movie]
+    var totalResults: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case page
+        case results
+        case totalResults = "total_results"
+    }
 }

@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol MoviesViewDelegate {
+    func fetchMoreMovies()
+    func goMovieDetailView()
+}
+
 private enum Section: CaseIterable {
     case main
 }
@@ -24,6 +29,8 @@ class MoviesHomeView: UIView {
             }
         }
     }
+    
+    var totalResults = 0
     
     // MARK: - Private properties
     
@@ -45,6 +52,8 @@ class MoviesHomeView: UIView {
     
     private lazy var dataSource = makeDataSource()
     
+    var delegate: MoviesViewDelegate?
+    
     // MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -60,7 +69,6 @@ class MoviesHomeView: UIView {
     // MARK: - Private functions
     
     func applySnapshot() {
-        print(movies)
         var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(movies)
@@ -82,6 +90,8 @@ class MoviesHomeView: UIView {
     }
     
     private func setupView() {
+        moviesCollectionView.delegate = self
+        
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         addSubview(moviesCollectionView)
@@ -89,5 +99,17 @@ class MoviesHomeView: UIView {
         moviesCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         moviesCollectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         moviesCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+}
+
+extension MoviesHomeView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.item == movies.count - 1 && movies.count < totalResults {
+            delegate?.fetchMoreMovies()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selected \(indexPath.item)")
     }
 }

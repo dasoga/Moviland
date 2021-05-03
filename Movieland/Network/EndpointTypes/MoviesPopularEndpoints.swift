@@ -9,7 +9,7 @@ import Foundation
 
 enum MoviesPopularEndpoints: ServiceProtocol {
     
-    case popular
+    case popular(page:Int)
     
     var baseURL: URL {
         return URL(string: NetworkConstants.baseURL)!
@@ -24,9 +24,13 @@ enum MoviesPopularEndpoints: ServiceProtocol {
     }
     
     var task: HTTPTask {
-        var parameters: Parameters = [:]
-        parameters[NetworkConstants.APIKeyParameter] = NetworkConstants.APIKey
-        return .requestParameters(parameters)
+        switch self{
+        case let .popular(page):
+            var parameters: Parameters = [:]
+            parameters[NetworkConstants.APIKeyParameter] = NetworkConstants.APIKey
+            parameters[NetworkConstants.page] = page
+            return .requestParameters(parameters)
+        }
     }
     
     var parametersEncoding: ParameterEncodingEnum {

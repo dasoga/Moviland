@@ -19,6 +19,7 @@ class MoviesHomeViewController: UIViewController {
     var subscription: AnyCancellable?
 
     let session = URLSessionProvider()
+    var currentPage = 1    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class MoviesHomeViewController: UIViewController {
     // MARK: - Private functions
     
     private func setupView() {
+        moviesHomeView.delegate = self
         view.addSubview(moviesHomeView)
     }
     
@@ -41,8 +43,22 @@ class MoviesHomeViewController: UIViewController {
                 print("Error: \(error.localizedDescription)")
             default: break
             }
-        }, receiveValue: { [weak self] movies in
-            self?.moviesHomeView.movies = movies
+        }, receiveValue: { [weak self] popularResult in
+            self?.moviesHomeView.movies.append(contentsOf: popularResult?.results ?? [])
+            self?.moviesHomeView.totalResults = popularResult?.totalResults ?? 0
         })
+    }
+}
+
+extension MoviesHomeViewController: MoviesViewDelegate {
+    func fetchMoreMovies() {
+        // Fetch more data with pagination
+        currentPage += 1
+        print("Fetch more data, page: \(currentPage)")
+        homeViewModel.getPopularMovies(page: currentPage)
+    }
+    
+    func goMovieDetailView() {
+        // Go to movie detail view
     }
 }
