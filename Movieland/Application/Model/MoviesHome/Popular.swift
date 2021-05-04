@@ -15,6 +15,6 @@ struct Popular: Codable {
     enum CodingKeys: String, CodingKey {
         case page
         case results
-        case totalResults = "total_results"
+        case totalResults = "total_results"        
     }
 }
