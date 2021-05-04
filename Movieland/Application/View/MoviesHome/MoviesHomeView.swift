@@ -76,8 +76,9 @@ class MoviesHomeView: UIView {
     }
     
     private func makeDataSource() -> UICollectionViewDiffableDataSource<Section, Movie> {
-        let dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: moviesCollectionView) { (collectionView, indexPath, vendingMachine) -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: moviesCollectionView) { (collectionView, indexPath, movie) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Home.moviesCell, for: indexPath) as! PopularMoviesCollectionViewCell
+            cell.movie = movie
             return cell
         }
         

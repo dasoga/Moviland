@@ -10,10 +10,11 @@ import Foundation
 struct NetworkConstants {
     
     static let baseURL = "https://api.themoviedb.org/3"
+    static let imageBaseURL = "https://image.tmdb.org/t/p/"
     static let APIKey = "914c7cee308e33b79a6cb098f027cddd"
     static let APIKeyParameter = "api_key"
+    static let imageSize = "w185"
     static let page = "page"
-    
     
     // Validate valid response codes
     static func isSuccessStatusCode(statusCode: (Int)) -> Bool {
