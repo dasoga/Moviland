@@ -10,12 +10,12 @@ import Foundation
 struct Movie: Codable, Hashable {
     
     var id: Int
-    var posterPath: String
-    var title: String
-    var voteAverage: Float
-    var overview: String
-    var releaseDate: String
-    var runtime: Int
+    var posterPath: String?
+    var title: String?
+    var voteAverage: Float?
+    var overview: String?
+    var releaseDate: String?
+    var runtime: Int?
     
     private enum CodingKeys: String, CodingKey {
         case id
