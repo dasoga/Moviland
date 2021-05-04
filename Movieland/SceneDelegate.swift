@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setupWindow(windowScene: UIWindowScene) {
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .systemBackground
-        window?.rootViewController = MoviesHomeViewController()
+        window?.rootViewController = UINavigationController(rootViewController: MoviesHomeViewController())
         window?.makeKeyAndVisible()
     }
 

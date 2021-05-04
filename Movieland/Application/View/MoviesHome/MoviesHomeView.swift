@@ -9,7 +9,7 @@ import UIKit
 
 protocol MoviesViewDelegate {
     func fetchMoreMovies()
-    func goMovieDetailView()
+    func goMovieDetailView(_ movie: Movie)
 }
 
 private enum Section: CaseIterable {
@@ -110,6 +110,6 @@ extension MoviesHomeView: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected \(indexPath.item)")
+        delegate?.goMovieDetailView(movies[indexPath.item])
     }
 }

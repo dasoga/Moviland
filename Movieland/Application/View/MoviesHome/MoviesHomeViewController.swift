@@ -58,7 +58,10 @@ extension MoviesHomeViewController: MoviesViewDelegate {
         homeViewModel.getPopularMovies(page: currentPage)
     }
     
-    func goMovieDetailView() {
+    func goMovieDetailView(_ movie: Movie) {
         // Go to movie detail view
+        let movieDetailController = MovieDetailViewController()
+        movieDetailController.movie = movie
+        navigationController?.pushViewController(movieDetailController, animated: true)
     }
 }
