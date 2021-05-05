@@ -34,7 +34,7 @@ class FilterMoviesViewController: UIViewController {
     // MARK: - Private functions
     
     private func setupView() {
-        title = "Filters"
+        title = .filters
         view.backgroundColor = .systemBackground
         
         // Register filter cell

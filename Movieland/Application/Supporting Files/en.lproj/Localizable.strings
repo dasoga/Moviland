@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  Movieland
+
+  Created by Dante Solorio on 05/05/21.
+  
+*/
+
+// Filter
+
+"Popular" = "Popular";
+"Top Rated" = "Top Rated";
+
+// FilterMoviesViewController
+
+"Filters" = "Filters";
+
+// MovieDetailView
+
+"Rating" = "Rating";
+
+// MoviesHomeViewController
+
+"Popular movies" = "Popular movies";

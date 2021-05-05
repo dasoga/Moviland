@@ -14,9 +14,9 @@ enum Filter {
     var description: String {
         switch self {
         case .popular:
-            return "Popular"
+            return "Popular".localize()
         case .topRated:
-            return "Top Rated"
+            return "Top Rated".localize()
         }
     }
 }

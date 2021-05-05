@@ -34,7 +34,7 @@ class MoviesHomeViewController: UIViewController {
     // MARK: - Private functions
     
     private func setupView() {
-        title = Constants.Home.popularMovies
+        title = .popularMovies.capitalized
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(moviesHomeView)
         

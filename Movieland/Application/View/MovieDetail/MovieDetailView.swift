@@ -104,7 +104,7 @@ class MovieDetailView: UIView {
     
     private func setMovieInformation() {
         if let voteAverage = movie?.voteAverage {
-            ratingLabel.text = String(format: "Rating: %.2f / 10", voteAverage)
+            ratingLabel.text = .rating + ": " + String(format: "%.2f / 10", voteAverage)
         }
         
         releaseDateLabel.text = movie?.releaseYear
