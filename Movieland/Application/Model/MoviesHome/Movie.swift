@@ -9,7 +9,8 @@ import Foundation
 
 struct Movie: Codable, Hashable {
     
-    var id: Int
+    var id: Int?
+    var identifier: String? = UUID().uuidString
     var posterPath: String?
     var originalTitle: String?
     var title: String?
