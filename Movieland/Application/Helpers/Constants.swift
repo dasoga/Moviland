@@ -11,5 +11,6 @@ struct Constants {
 
     struct Home {
         static let moviesCell = "MoviesCell"
+        static let popularMovies = "Popular Movies"
     }
 }
