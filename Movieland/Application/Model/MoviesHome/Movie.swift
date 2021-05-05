@@ -11,6 +11,7 @@ struct Movie: Codable, Hashable {
     
     var id: Int
     var posterPath: String?
+    var originalTitle: String?
     var title: String?
     var voteAverage: Float?
     var overview: String?
@@ -20,6 +21,7 @@ struct Movie: Codable, Hashable {
     private enum CodingKeys: String, CodingKey {
         case id
         case posterPath = "poster_path"
+        case originalTitle = "original_title"
         case title
         case voteAverage = "vote_average"
         case overview

@@ -14,21 +14,53 @@ protocol MovieDetailViewDelegate {
 class MovieDetailView: UIView {
     
     // MARK: - Properties
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Title"
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    
+    private let posterImageView: UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "MoviePlaceholder"))
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
     }()
     
-    private lazy var trailerButton: UIButton = {
-        let button = UIButton()
-        button.isHidden = true
-        button.setTitle("Trailer 1", for: .normal)
-        button.addTarget(self, action: #selector(showTrailer), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private let ratingLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 14, weight: .light)
+        lbl.textAlignment = .left
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let releaseDateLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 14, weight: .light)
+        lbl.textAlignment = .right
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let titleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 20, weight: .semibold)
+        lbl.textAlignment = .center
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let synopsisTextView: UITextView = {
+        let tv = UITextView()
+        tv.textAlignment = .center
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
+    }()
+    
+    private let trailerButton: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .systemBlue
+        btn.isHidden = true
+        btn.setTitle("Trailer 1", for: .normal)
+        btn.addTarget(self, action: #selector(showTrailer), for: .touchUpInside)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
     }()
     
     var delegate: MovieDetailViewDelegate?
@@ -36,8 +68,10 @@ class MovieDetailView: UIView {
     var movie: Movie? {
         didSet {
             getMovieTrailers()
+            setMovieInformation()
         }
     }
+    
     var videos: [Video] = [] {
         didSet {
             // TODO: Replace this with a table for more than one trailer
@@ -57,25 +91,61 @@ class MovieDetailView: UIView {
     }
     
     // MARK: - Private functions
+    
+    private func setMovieInformation() {
+        if let voteAverage = movie?.voteAverage {
+            ratingLabel.text = String(format: "Rating: %.2f / 10", voteAverage)
+        }
+        
+        releaseDateLabel.text = movie?.releaseDate
+        titleLabel.text = movie?.originalTitle
+        synopsisTextView.text = movie?.overview
+    }
 
     private func setupView() {
+        let width = frame.width
+        let height = frame.height
+        let horizontalMargin = width * 0.05
+        let verticalMargin = height * 0.05
+        let smallHorizontalMargin = horizontalMargin * 0.5
+        let smallVerticalMargin = verticalMargin * 0.5
+        let posterImageViewHeightMultiplier: CGFloat = 0.4
+        let trailerButtonWidthMultiplier: CGFloat = 0.9
+        
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        let height = frame.height
-        let titleHeight = height / 4
+        addSubview(posterImageView)
+        posterImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        posterImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+        posterImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        posterImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: posterImageViewHeightMultiplier).isActive = true
+        
+        addSubview(ratingLabel)
+        ratingLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: smallVerticalMargin).isActive = true
+        ratingLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: smallHorizontalMargin).isActive = true
+        ratingLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
+        addSubview(releaseDateLabel)
+        releaseDateLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: smallVerticalMargin).isActive = true
+        releaseDateLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        releaseDateLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -smallHorizontalMargin).isActive = true
         
         addSubview(titleLabel)
-        titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 8).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: titleHeight).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: verticalMargin).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: horizontalMargin).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -horizontalMargin).isActive = true
         
         addSubview(trailerButton)
-        trailerButton.backgroundColor = .systemBlue
-        trailerButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
-        trailerButton.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: 16).isActive = true
-        trailerButton.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: -16).isActive = true
+        trailerButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -verticalMargin).isActive = true
+        trailerButton.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        trailerButton.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor, multiplier: trailerButtonWidthMultiplier).isActive = true
         trailerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        addSubview(synopsisTextView)
+        synopsisTextView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: verticalMargin).isActive = true
+        synopsisTextView.bottomAnchor.constraint(equalTo: trailerButton.topAnchor, constant: -verticalMargin).isActive = true
+        synopsisTextView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: horizontalMargin).isActive = true
+        synopsisTextView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -horizontalMargin).isActive = true
     }
     
     private func getMovieTrailers() {
