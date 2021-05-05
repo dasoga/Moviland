@@ -19,7 +19,9 @@ class MoviesHomeViewController: UIViewController {
     var subscription: AnyCancellable?
 
     let session = URLSessionProvider()
-    var currentPage = 1    
+    var currentPage = 1
+    
+    var currentFilter = Filter.popular
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,9 @@ class MoviesHomeViewController: UIViewController {
         title = Constants.Home.popularMovies
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(moviesHomeView)
+        
+        // Show filter button
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: .actions, style: .plain, target: self, action: #selector(filterBy(_ :)))
     }
     
     private func setupBindings() {
@@ -54,6 +59,13 @@ class MoviesHomeViewController: UIViewController {
             }
         })
     }
+    
+    // MARK: - Actions
+    @objc func filterBy(_ sender: UIBarButtonItem) {
+        let filterController = FilterMoviesViewController()
+        filterController.delegate = self
+        navigationController?.present(UINavigationController(rootViewController: filterController), animated: true)
+    }
 }
 
 extension MoviesHomeViewController: MoviesViewDelegate {
@@ -70,5 +82,16 @@ extension MoviesHomeViewController: MoviesViewDelegate {
         let movieDetailController = MovieDetailViewController()
         movieDetailController.movie = movie
         navigationController?.pushViewController(movieDetailController, animated: true)
+    }
+}
+
+
+extension MoviesHomeViewController: FilterMoviesViewControllerDelegate {
+    func filterSelected(filter: Filter) {
+        if filter != currentFilter {
+            // TODO: Make new request
+            title = filter.description
+            currentFilter = filter
+        }
     }
 }
