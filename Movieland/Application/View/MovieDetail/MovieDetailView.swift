@@ -97,7 +97,7 @@ class MovieDetailView: UIView {
             ratingLabel.text = String(format: "Rating: %.2f / 10", voteAverage)
         }
         
-        releaseDateLabel.text = movie?.releaseDate
+        releaseDateLabel.text = movie?.releaseYear
         titleLabel.text = movie?.originalTitle
         synopsisTextView.text = movie?.overview
     }

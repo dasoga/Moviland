@@ -31,5 +31,5 @@ class MovieDetailViewModel {
                 self?.movieTrailersSubject.send(videos)
             }
         }
-    }
+    }    
 }
