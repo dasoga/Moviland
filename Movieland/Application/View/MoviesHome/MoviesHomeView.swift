@@ -97,7 +97,9 @@ class MoviesHomeView: UIView {
     
     func hideActivityIndicatorView() {
         activityIndicatorView.stopAnimating()
-        activityIndicatorViewHeightConstraint?.constant = 0.0
+        activityIndicatorViewHeightConstraint?.isActive = false
+        activityIndicatorViewHeightConstraint = activityIndicatorView.heightAnchor.constraint(equalToConstant: 0.0)
+        activityIndicatorViewHeightConstraint?.isActive = true
         activityIndicatorView.layoutIfNeeded()
     }
     
@@ -126,14 +128,12 @@ class MoviesHomeView: UIView {
     }
     
     private func setupView() {
-        let height = frame.height
-        
         moviesCollectionView.delegate = self
         
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         addSubview(activityIndicatorView)
-        activityIndicatorViewHeightConstraint = activityIndicatorView.heightAnchor.constraint(equalToConstant: height)
+        activityIndicatorViewHeightConstraint = activityIndicatorView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor)
         activityIndicatorViewHeightConstraint?.isActive = true
         activityIndicatorView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         activityIndicatorView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
