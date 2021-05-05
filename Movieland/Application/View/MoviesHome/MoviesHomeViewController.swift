@@ -12,7 +12,7 @@ class MoviesHomeViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private lazy var moviesHomeView = MoviesHomeView(frame: view.frame)
+    private lazy var moviesHomeView = MoviesHomeView(frame: view.frame, delegate: self)
     var homeViewModel = MoviesHomeViewModel(session: URLSessionProvider())
     
     // Subscritions to receive the popular movies list
@@ -25,13 +25,13 @@ class MoviesHomeViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupBindings()
+        moviesHomeView.showActivityIndicatorView()
         homeViewModel.getPopularMovies()
     }
     
     // MARK: - Private functions
     
     private func setupView() {
-        moviesHomeView.delegate = self
         view.addSubview(moviesHomeView)
     }
     
@@ -46,6 +46,10 @@ class MoviesHomeViewController: UIViewController {
         }, receiveValue: { [weak self] popularResult in
             self?.moviesHomeView.movies.append(contentsOf: popularResult?.results ?? [])
             self?.moviesHomeView.totalResults = popularResult?.totalResults ?? 0
+            
+            DispatchQueue.main.async {
+                self?.moviesHomeView.hideActivityIndicatorView()
+            }
         })
     }
 }
@@ -55,6 +59,7 @@ extension MoviesHomeViewController: MoviesViewDelegate {
         // Fetch more data with pagination
         currentPage += 1
         print("Fetch more data, page: \(currentPage)")
+        moviesHomeView.showActivityIndicatorView()
         homeViewModel.getPopularMovies(page: currentPage)
     }
     

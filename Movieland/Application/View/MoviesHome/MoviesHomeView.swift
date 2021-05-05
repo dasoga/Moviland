@@ -50,11 +50,24 @@ class MoviesHomeView: UIView {
         return layout
     }()
     
+    private var activityIndicatorView: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.translatesAutoresizingMaskIntoConstraints = false
+        return aiv
+    }()
+    
+    private var activityIndicatorViewHeightConstraint: NSLayoutConstraint?
+    private var delegate: MoviesViewDelegate?
+    
+    private lazy var activityIndicatorSize = min(frame.width, frame.height) * 0.1
     private lazy var dataSource = makeDataSource()
     
-    var delegate: MoviesViewDelegate?
-    
     // MARK: - Initializers
+    
+    convenience init(frame: CGRect, delegate: MoviesViewDelegate?) {
+        self.init(frame: frame)
+        self.delegate = delegate
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,9 +79,30 @@ class MoviesHomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Internal functions
+    
+    func showActivityIndicatorView() {
+        activityIndicatorView.startAnimating()
+        
+        guard !movies.isEmpty else {
+            activityIndicatorView.style = .large
+            return
+        }
+        
+        activityIndicatorViewHeightConstraint?.constant = activityIndicatorSize
+        activityIndicatorView.style = .medium
+        activityIndicatorView.layoutIfNeeded()
+    }
+    
+    func hideActivityIndicatorView() {
+        activityIndicatorView.stopAnimating()
+        activityIndicatorViewHeightConstraint?.constant = 0.0
+        activityIndicatorView.layoutIfNeeded()
+    }
+    
     // MARK: - Private functions
     
-    func applySnapshot() {
+    private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(movies)
@@ -91,15 +125,25 @@ class MoviesHomeView: UIView {
     }
     
     private func setupView() {
+        let width = frame.width
+        let height = frame.height
+        let activityIndicatorBigSize = min(width, height) * 0.4
+        
         moviesCollectionView.delegate = self
         
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
+        addSubview(activityIndicatorView)
+        activityIndicatorViewHeightConstraint = activityIndicatorView.heightAnchor.constraint(equalToConstant: height)
+        activityIndicatorViewHeightConstraint?.isActive = true
+        activityIndicatorView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        activityIndicatorView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        
         addSubview(moviesCollectionView)
         moviesCollectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        moviesCollectionView.bottomAnchor.constraint(equalTo: activityIndicatorView.topAnchor).isActive = true
         moviesCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         moviesCollectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        moviesCollectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 }
 
