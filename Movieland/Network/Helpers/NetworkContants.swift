@@ -13,7 +13,9 @@ struct NetworkConstants {
     static let imageBaseURL = "https://image.tmdb.org/t/p/"
     static let APIKey = "914c7cee308e33b79a6cb098f027cddd"
     static let APIKeyParameter = "api_key"
-    static let imageSize = "w185"
+    static let w185Size = "w185"
+    static let w500Size = "w500"
+    static let w780Size = "w780"
     static let page = "page"
     
     // Validate valid response codes

@@ -39,7 +39,7 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
     
     private func getPosterImage() {
         guard let posterPath = movie?.posterPath else { return }
-        guard let url = URL(string: "\(NetworkConstants.imageBaseURL)\(NetworkConstants.imageSize)\(posterPath)") else { return }
+        guard let url = URL(string: "\(NetworkConstants.imageBaseURL)\(NetworkConstants.w185Size)\(posterPath)") else { return }
         
         if let image = cache[url.absoluteString] {
             posterImageView.image = image

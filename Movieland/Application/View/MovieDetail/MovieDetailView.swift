@@ -5,6 +5,7 @@
 //  Created by Dante Solorio on 04/05/21.
 //
 
+import Combine
 import UIKit
 
 protocol MovieDetailViewDelegate {
@@ -17,6 +18,7 @@ class MovieDetailView: UIView {
     
     private let posterImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "MoviePlaceholder"))
+        iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -63,12 +65,15 @@ class MovieDetailView: UIView {
         return btn
     }()
     
-    var delegate: MovieDetailViewDelegate?
+    private var cache = ImageCache.shared
+    private var delegate: MovieDetailViewDelegate?
+    private var subscription: AnyCancellable?
     
     var movie: Movie? {
         didSet {
-            getMovieTrailers()
             setMovieInformation()
+            getMovieTrailers()
+            getMoviePoster()
         }
     }
     
@@ -80,6 +85,11 @@ class MovieDetailView: UIView {
     }
 
     // MARK: - Initializers
+    
+    convenience init(frame: CGRect, delegate: MovieDetailViewDelegate?) {
+        self.init(frame: frame)
+        self.delegate = delegate
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -109,13 +119,13 @@ class MovieDetailView: UIView {
         let verticalMargin = height * 0.05
         let smallHorizontalMargin = horizontalMargin * 0.5
         let smallVerticalMargin = verticalMargin * 0.5
-        let posterImageViewHeightMultiplier: CGFloat = 0.4
+        let posterImageViewHeightMultiplier: CGFloat = 0.5
         let trailerButtonWidthMultiplier: CGFloat = 0.9
         
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         addSubview(posterImageView)
-        posterImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        posterImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         posterImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         posterImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
         posterImageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: posterImageViewHeightMultiplier).isActive = true
@@ -151,6 +161,25 @@ class MovieDetailView: UIView {
     private func getMovieTrailers() {
         guard let id = movie?.id else { return }
         delegate?.getMovieTrailers(movieID: id)
+    }
+    
+    private func getMoviePoster() {
+        guard let posterPath = movie?.posterPath else { return }
+        guard let url = URL(string: "\(NetworkConstants.imageBaseURL)\(NetworkConstants.w780Size)\(posterPath)") else { return }
+        
+        if let image = cache[url.absoluteString] {
+            posterImageView.image = image
+            return
+        }
+        
+        subscription = URLSession.shared.dataTaskPublisher(for: url)
+            .map { UIImage(data: $0.data) }
+            .replaceError(with: #imageLiteral(resourceName: "MoviePlaceholder"))
+            .handleEvents(receiveOutput: {
+                self.cache[url.absoluteString] = $0
+            })
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.posterImageView.image, on: self)
     }
     
     private func showTrailersUI() {

@@ -10,8 +10,8 @@ import Combine
 
 class MovieDetailViewController: UIViewController {
     
-    private lazy var moviesDetailView = MovieDetailView(frame: view.frame)
-    var movieDetailViewModel = MovieDetailViewModel(session: URLSessionProvider())
+    private lazy var moviesDetailView = MovieDetailView(frame: view.frame, delegate: self)
+    private var movieDetailViewModel = MovieDetailViewModel(session: URLSessionProvider())
     
     var movie: Movie?
     
@@ -26,7 +26,6 @@ class MovieDetailViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .systemBackground
-        moviesDetailView.delegate = self
         moviesDetailView.movie = movie
         view.addSubview(moviesDetailView)
     }
@@ -45,6 +44,7 @@ class MovieDetailViewController: UIViewController {
     }
 }
 
+// MARK: - MovieDetailViewDelegate
 
 extension MovieDetailViewController: MovieDetailViewDelegate {
     func getMovieTrailers(movieID: Int) {
