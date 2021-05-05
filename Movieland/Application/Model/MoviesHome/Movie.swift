@@ -18,6 +18,10 @@ struct Movie: Codable, Hashable {
     var releaseDate: String?
     var runtime: Int?
     
+    var releaseYear: String {
+        return getMovieReleaseYear(dateResult: releaseDate)
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case id
         case posterPath = "poster_path"
@@ -28,4 +32,17 @@ struct Movie: Codable, Hashable {
         case releaseDate = "release_date"
         case runtime
     }
+    
+    private func getMovieReleaseYear(dateResult: String?) -> String {
+        let originalDateFormatter = DateFormatter()
+        originalDateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let dateResult = dateResult else { return "" }
+        let originalDate = originalDateFormatter.date(from: dateResult)
+
+        let yearDateFormatter = DateFormatter()
+        yearDateFormatter.dateFormat = "yyyy"
+        guard let originalDate = originalDate else { return "" }
+        return yearDateFormatter.string(from: originalDate)
+    }
+
 }
