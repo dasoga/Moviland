@@ -16,9 +16,7 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var subscription: AnyCancellable?
-    
-    let posterImageView: UIImageView = {
+    private let posterImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "MoviePlaceholder"))
         iv.clipsToBounds = true
         iv.layer.cornerRadius = 15.0
@@ -26,6 +24,9 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
+    
+    private var cache = ImageCache.shared
+    private var subscription: AnyCancellable?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,9 +41,17 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
         guard let posterPath = movie?.posterPath else { return }
         guard let url = URL(string: "\(NetworkConstants.imageBaseURL)\(NetworkConstants.imageSize)\(posterPath)") else { return }
         
+        if let image = cache[url.absoluteString] {
+            posterImageView.image = image
+            return
+        }
+        
         subscription = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
             .replaceError(with: #imageLiteral(resourceName: "MoviePlaceholder"))
+            .handleEvents(receiveOutput: {
+                self.cache[url.absoluteString] = $0
+            })
             .receive(on: DispatchQueue.main)
             .assign(to: \.posterImageView.image, on: self)
     }
