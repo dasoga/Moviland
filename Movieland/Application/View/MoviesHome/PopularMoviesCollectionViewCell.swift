@@ -20,6 +20,8 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
     
     let posterImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "MoviePlaceholder"))
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 15.0
         iv.contentMode = .scaleAspectFit
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv

@@ -42,8 +42,9 @@ class MoviesHomeView: UIView {
     }()
     
     private lazy var compositionalLayout: UICollectionViewCompositionalLayout = {
-        let inset: CGFloat = 10
+        let inset: CGFloat = 10.0
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1)))
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0.0, leading: 0.0, bottom: inset, trailing: 0.0)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/4)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
@@ -125,9 +126,7 @@ class MoviesHomeView: UIView {
     }
     
     private func setupView() {
-        let width = frame.width
         let height = frame.height
-        let activityIndicatorBigSize = min(width, height) * 0.4
         
         moviesCollectionView.delegate = self
         
