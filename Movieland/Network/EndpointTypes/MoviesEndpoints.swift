@@ -7,16 +7,19 @@
 
 import Foundation
 
-enum MoviesPopularEndpoints: ServiceProtocol {
+enum MoviesEndpoints: ServiceProtocol {
     
-    case popular(page:Int)
+    case getMovies(page: Int, type: String)
     
     var baseURL: URL {
         return URL(string: NetworkConstants.baseURL)!
     }
     
     var path: String {
-        return "/movie/popular"
+        switch self {
+        case let .getMovies(_, type):
+            return "/movie/\(type)"
+        }
     }
     
     var method: HTTPMethod {
@@ -25,7 +28,7 @@ enum MoviesPopularEndpoints: ServiceProtocol {
     
     var task: HTTPTask {
         switch self{
-        case let .popular(page):
+        case let .getMovies(page, _):
             var parameters: Parameters = [:]
             parameters[NetworkConstants.APIKeyParameter] = NetworkConstants.APIKey
             parameters[NetworkConstants.page] = page
@@ -36,6 +39,4 @@ enum MoviesPopularEndpoints: ServiceProtocol {
     var parametersEncoding: ParameterEncodingEnum {
         return .urlEncoding
     }
-
-    
 }

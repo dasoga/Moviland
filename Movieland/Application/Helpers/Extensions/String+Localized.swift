@@ -22,5 +22,6 @@ extension String {
 // MoviesHomeViewController
 
 extension String {
-    static let popularMovies = "Popular movies".localize()
+    static let popular = "Popular".localize()
+    static let topRated = "Top rated".localize()
 }

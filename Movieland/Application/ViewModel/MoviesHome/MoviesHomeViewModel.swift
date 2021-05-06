@@ -18,12 +18,14 @@ class MoviesHomeViewModel {
         self.session = session
     }
     
-    func getPopularMovies(page: Int = 1) {
-        let popularMoviesEndpoint = MoviesPopularEndpoints.popular(page: page)
-        session.request(type: Popular.self, service: popularMoviesEndpoint) { [weak self] response in
+    func getMovies(page: Int = 1, type: String? = Filter.allCases.first(where: { $0.isSelected })?.type) {
+        guard let type = type else { return }
+        let getMoviesEndpoint = MoviesEndpoints.getMovies(page: page, type: type)
+        
+        session.request(type: Popular.self, service: getMoviesEndpoint) { [weak self] response in
             switch response {
-            case .success(let popularMoviesResult):
-                self?.popularMoviesSubject.send(popularMoviesResult)
+            case .success(let moviesResult):
+                self?.popularMoviesSubject.send(moviesResult)
             case let .failure(error):
                 self?.popularMoviesSubject.send(completion: .failure(error))
             }

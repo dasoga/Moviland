@@ -21,25 +21,23 @@ class MoviesHomeViewController: UIViewController {
     let session = URLSessionProvider()
     var currentPage = 1
     
-    var currentFilter = Filter.popular
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         setupBindings()
         moviesHomeView.showActivityIndicatorView()
-        homeViewModel.getPopularMovies()
+        homeViewModel.getMovies()
     }
     
     // MARK: - Private functions
     
     private func setupView() {
-        title = .popularMovies.capitalized
+        title = Filter.allCases.first(where: { $0.isSelected })?.description.capitalized
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(moviesHomeView)
         
         // Show filter button
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: .actions, style: .plain, target: self, action: #selector(filterBy(_ :)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: .actions, style: .plain, target: self, action: #selector(handleActionsBarButton))
     }
     
     private func setupBindings() {
@@ -61,7 +59,8 @@ class MoviesHomeViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @objc func filterBy(_ sender: UIBarButtonItem) {
+    
+    @objc private func handleActionsBarButton(_ sender: UIBarButtonItem) {
         let filterController = FilterMoviesViewController()
         filterController.delegate = self
         navigationController?.present(UINavigationController(rootViewController: filterController), animated: true)
@@ -74,7 +73,7 @@ extension MoviesHomeViewController: MoviesViewDelegate {
         currentPage += 1
         print("Fetch more data, page: \(currentPage)")
         moviesHomeView.showActivityIndicatorView()
-        homeViewModel.getPopularMovies(page: currentPage)
+        homeViewModel.getMovies(page: currentPage)
     }
     
     func goMovieDetailView(_ movie: Movie) {
@@ -85,13 +84,16 @@ extension MoviesHomeViewController: MoviesViewDelegate {
     }
 }
 
+// MARK: - FilterMoviesViewControllerDelegate
 
 extension MoviesHomeViewController: FilterMoviesViewControllerDelegate {
     func filterSelected(filter: Filter) {
-        if filter != currentFilter {
-            // TODO: Make new request
+        if filter.rawValue != UserDefaultsManager.filterSelected {
+            UserDefaultsManager.filterSelected = filter.rawValue
+            currentPage = 1
+            moviesHomeView.movies.removeAll()
+            homeViewModel.getMovies()
             title = filter.description
-            currentFilter = filter
         }
     }
 }

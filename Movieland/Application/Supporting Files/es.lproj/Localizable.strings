@@ -6,11 +6,6 @@
   
 */
 
-// Filter
-
-"Popular" = "Popular";
-"Top Rated" = "Más valoradas";
-
 // FilterMoviesViewController
 
 "Filters" = "Filtros";
@@ -21,4 +16,5 @@
 
 // MoviesHomeViewController
 
-"Popular movies" = "Películas populares";
+"Popular" = "Populares";
+"Top rated" = "Más valoradas";

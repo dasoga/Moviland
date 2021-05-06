@@ -24,7 +24,7 @@ class FilterMoviesViewController: UIViewController {
         return tv
     }()
     
-    var filters: [Filter] = [.popular, .topRated]
+    private var filters = Filter.allCases
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +37,6 @@ class FilterMoviesViewController: UIViewController {
         title = .filters
         view.backgroundColor = .systemBackground
         
-        // Register filter cell
-        filterTableView.register(UITableViewCell.self, forCellReuseIdentifier: "filterCell")
-        
         view.addSubview(filterTableView)
         
         NSLayoutConstraint.activate([
@@ -49,13 +46,15 @@ class FilterMoviesViewController: UIViewController {
             filterTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
 }
+
+// MARK: - UITableViewDataSource
 
 extension FilterMoviesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "filterCell")!
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "filterCell")
         let currentFilter = filters[indexPath.row]
+        cell.accessoryType = currentFilter.isSelected ? .checkmark : .none
         cell.textLabel?.text = currentFilter.description
         return cell
     }
@@ -65,10 +64,11 @@ extension FilterMoviesViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 
 extension FilterMoviesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.filterSelected(filter: filters[indexPath.item])
+        delegate?.filterSelected(filter: filters[indexPath.row])
         dismiss(animated: true)
     }
 }
