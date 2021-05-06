@@ -51,6 +51,7 @@ class MovieDetailView: UIView {
     private let synopsisTextView: UITextView = {
         let tv = UITextView()
         tv.textAlignment = .center
+        tv.isEditable = false        
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
