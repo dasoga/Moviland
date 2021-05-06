@@ -17,10 +17,10 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
     }
     
     private let posterImageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "MoviePlaceholder"))
+        let iv = UIImageView(image: UIImage(systemName: "video")?.withRenderingMode(.alwaysTemplate))
         iv.clipsToBounds = true
-        iv.layer.cornerRadius = 15.0
         iv.contentMode = .scaleAspectFit
+        iv.tintColor = .lightGray
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -48,7 +48,7 @@ class PopularMoviesCollectionViewCell: UICollectionViewCell {
         
         subscription = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
-            .replaceError(with: #imageLiteral(resourceName: "MoviePlaceholder"))
+            .replaceError(with: nil)
             .handleEvents(receiveOutput: {
                 self.cache[url.absoluteString] = $0
             })
