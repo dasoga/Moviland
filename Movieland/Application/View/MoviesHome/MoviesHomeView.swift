@@ -118,8 +118,8 @@ class MoviesHomeView: UIView {
     }
     
     private func getLayoutSize(_ layoutType: LayoutType) -> CGFloat {
-        let minimumWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 270.0 : 135.0
-        let minimumHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 400.0 : 200.0
+        let minimumWidth: CGFloat = UIScreen.main.bounds.width / (UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3)
+        let minimumHeight: CGFloat = UIScreen.main.bounds.height / (UIDevice.current.userInterfaceIdiom == .pad ? 3 : 4)
         
         switch layoutType {
         case .width:
