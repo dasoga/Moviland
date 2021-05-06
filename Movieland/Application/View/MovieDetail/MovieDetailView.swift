@@ -17,9 +17,10 @@ class MovieDetailView: UIView {
     // MARK: - Properties
     
     private let posterImageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "MoviePlaceholder"))
+        let iv = UIImageView(image: UIImage(systemName: "video")?.withRenderingMode(.alwaysTemplate))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
+        iv.tintColor = .lightGray
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -175,7 +176,7 @@ class MovieDetailView: UIView {
         
         subscription = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
-            .replaceError(with: #imageLiteral(resourceName: "MoviePlaceholder"))
+            .replaceError(with: nil)
             .handleEvents(receiveOutput: {
                 self.cache[url.absoluteString] = $0
             })
