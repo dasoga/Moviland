@@ -12,6 +12,11 @@ protocol MoviesViewDelegate {
     func goMovieDetailView(_ movie: Movie)
 }
 
+private enum LayoutType {
+    case width
+    case height
+}
+
 private enum Section: CaseIterable {
     case main
 }
@@ -43,9 +48,9 @@ class MoviesHomeView: UIView {
     
     private lazy var compositionalLayout: UICollectionViewCompositionalLayout = {
         let inset: CGFloat = 10.0
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1)))
+        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(getLayoutSize(.width)), heightDimension: .fractionalHeight(1)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 0.0, leading: 0.0, bottom: inset, trailing: 0.0)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/4)), subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(getLayoutSize(.height))), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
@@ -110,6 +115,19 @@ class MoviesHomeView: UIView {
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(movies)
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func getLayoutSize(_ layoutType: LayoutType) -> CGFloat {
+        let minimumWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 270.0 : 135.0
+        let minimumHeight: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 400.0 : 200.0
+        
+        switch layoutType {
+        case .width:
+            return 1/CGFloat(Int(UIScreen.main.bounds.width / minimumWidth))
+        case .height:
+            print(CGFloat(Int(UIScreen.main.bounds.height / minimumHeight)))
+            return 1/CGFloat(Int(UIScreen.main.bounds.height / minimumHeight))
+        }
     }
     
     private func makeDataSource() -> UICollectionViewDiffableDataSource<Section, Movie> {
